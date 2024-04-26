@@ -10,9 +10,11 @@ import { usePathname, useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import { arrowLeft, bars, logout } from "@/app/utils/Icons";
 import { UserButton, useClerk, useUser } from "@clerk/nextjs";
+import { parse } from 'json2csv';
+
 
 function Sidebar() {
-  const { theme, collapsed, collapseMenu } = useGlobalState();
+  const { theme, collapsed, collapseMenu, tasks } = useGlobalState();
   const { signOut } = useClerk();
 
   const { user } = useUser();
@@ -28,6 +30,44 @@ function Sidebar() {
 
   const handleClick = (link: string) => {
     router.push(link);
+  };
+
+  const exportTasks = () => {
+    const csvdata = jsonToCsv(tasks)
+    handleDownload(csvdata)
+  }
+
+  interface DataItem {
+    title: String,
+    description: String,
+    date: String,
+    isCompleted: String,
+    isImportant: String,
+    createdAt: String,
+    updatedAt: String,
+  }
+
+  function jsonToCsv(jsonData: DataItem[]): string | null {
+    try {
+      const csv = parse(jsonData);
+      console.log(csv);
+      return csv;
+    } catch (err) {
+      console.error('Error converting JSON to CSV:', err);
+      return null;
+    }
+  }
+
+  function handleDownload(csvData: string) {
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.csv';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   return (
@@ -77,6 +117,16 @@ function Sidebar() {
             signOut(() => router.push("/signin"));
           }}
         />
+        <Button
+          name={"Export Tasks"}
+          type={"submit"}
+          padding={"0.4rem 0.8rem"}
+          borderRad={"0.8rem"}
+          fw={"500"}
+          fs={"1.2rem"}
+          icon={logout}
+          click={exportTasks}
+        />
       </div>
     </SidebarStyled>
   );
@@ -102,7 +152,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
 
     transition: all 0.3s cubic-bezier(0.53, 0.21, 0, 1);
     transform: ${(props) =>
-      props.collapsed ? "translateX(-107%)" : "translateX(0)"};
+    props.collapsed ? "translateX(-107%)" : "translateX(0)"};
 
     .toggle-nav {
       display: block !important;
