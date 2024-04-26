@@ -58,7 +58,8 @@ function Sidebar() {
     }
   }
 
-  function handleDownload(csvData: string) {
+  function handleDownload(csvData: string|null) {
+    if(!csvData) return
     const blob = new Blob([csvData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
