@@ -1,32 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## TODO APP
+An application to manage todos in your daily life.
+Created using:
+    >Next.js
+    >React
+    >Prisma
+    >MongoDB
 
-## Getting Started
+## Special Features
+ >Basic Auth for user login with each user having their own tasks.
+ >Option to export the current user's task details as a csv file.
+ >Home Page has filters for All tasks, Completed tasks, Important tasks and Do it now Tasks (uncompleted).
+ >Options to create, edit and delete tasks,
+ >New Task created can have a title, description, deadline-date and options to mark as completed and/or important.
+ >A user's tasks csv file contains fields such as task id, task name, task description, task deadline, isCompleted, isImportant, created time, updated time and user id.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-
+## APP DEMO
+You can check out the App Demo @ [Click here](https://todo-bbgr-ma7f1rcsz-androns-projects.vercel.app/)
